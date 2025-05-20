@@ -1,11 +1,19 @@
 // seed.js
-const db = require('./db');
+const pool = require('./db');
 
-db.run(`INSERT INTO Medications(name, info, sideEffects)
-VALUES (?, ?, ?)`,
-['Paracetamol', 'Used to treat pain and fever', 'Nausea, allergic reactions'], function(err) {
-  if (err) {
-    return console.log("Error inserting:", err.message);
+async function seed() {
+  try {
+    await pool.query(
+      `INSERT INTO Medications(name, info, sideeffects)
+       VALUES ($1, $2, $3)`,
+      ['Paracetamol', 'Used to treat pain and fever', 'Nausea, allergic reactions']
+    );
+    console.log("Sample medication inserted.");
+  } catch (err) {
+    console.error("Error inserting:", err.message);
+  } finally {
+    await pool.end();
   }
-  console.log("Sample medication inserted.");
-});
+}
+
+seed();
