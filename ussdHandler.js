@@ -17,7 +17,7 @@ module.exports = async function ussdHandler(req, res) {
             VALUES (?, ?, ?, ?)`, [sessionId, phoneNumber, lang, text]);
     const menu = lang === 'EN'
       ? `CON Main Menu\n1. Register\n2. Medicine Info\n0. Exit`
-      : `CON Menyu Nyamukuru\n1. Kwiyandikisha\n2. Amakuru ya Dawa\n0. Sohoka`;
+      : `CON Menyu Nyamukuru\n1. Kwiyandikisha\n2. Amakuru ya ubuzima\n0. Sohoka`;
     return res.send(menu);
   }
 
@@ -40,7 +40,7 @@ module.exports = async function ussdHandler(req, res) {
     } else if (choice === '2') {
       return res.send(lang === 'EN'
         ? `CON Enter medicine name:`
-        : `CON Andika izina rya dawa:`);
+        : `CON Andika izina rya ubuzima:`);
     } else {
       return res.send(lang === 'EN'
         ? `END Thank you!`
@@ -52,7 +52,7 @@ module.exports = async function ussdHandler(req, res) {
   if (level === 3 && inputs[1] === '1') {
     return res.send(lang === 'EN'
       ? `CON Enter your medicine:`
-      : `CON Andika izina rya dawa ukoresha:`);
+      : `CON Andika izina rya ubuzima ukoresha:`);
   }
 
   // Save registration
